@@ -13,6 +13,8 @@ kotlin {
                 implementation(projects.core.domain)
 
                 implementation(libs.bundles.ktor.common)
+
+                implementation(libs.touchlab.kermit)
             }
         }
         androidMain {
