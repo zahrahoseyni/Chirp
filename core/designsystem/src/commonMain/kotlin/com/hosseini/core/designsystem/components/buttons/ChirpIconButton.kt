@@ -14,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.hosseini.core.designsystem.theme.ChirpTheme
 import com.hosseini.core.designsystem.theme.extended
-import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ChirpIconButton(
