@@ -20,11 +20,23 @@ import chirp.composeapp.generated.resources.compose_multiplatform
 import com.hosseini.core.designsystem.theme.ChirpTheme
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
+import com.hosseini.core.designsystem.components.textfields.TextFieldLayout
+import com.hosseini.core.designsystem.components.textfields.TextFieldDefinition
+
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.unit.dp
 @Composable
 @Preview
 fun App() {
     ChirpTheme {
         var showContent by remember { mutableStateOf(false) }
+        var text by remember { mutableStateOf("") }
+
+        val textFieldDefinition = TextFieldDefinition(
+            title = "Username",
+            placeHolder = "Enter your username"
+        )
         Column(
             modifier = Modifier
                 .background(MaterialTheme.colorScheme.primaryContainer)
@@ -35,6 +47,16 @@ fun App() {
             Button(onClick = { showContent = !showContent }) {
                 Text("Click me!")
             }
+
+            Spacer(modifier = Modifier.padding(top = 16.dp))
+
+            TextFieldLayout(
+                definition = textFieldDefinition,
+                value = text,
+                onValueChange = { text = it },
+                modifier = Modifier.fillMaxWidth()
+            )
+
             AnimatedVisibility(showContent) {
                 val greeting = remember { Greeting().greet() }
                 Column(
