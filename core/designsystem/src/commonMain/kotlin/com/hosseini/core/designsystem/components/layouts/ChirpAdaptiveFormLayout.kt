@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -77,6 +76,8 @@ fun ChirpAdaptiveFormLayout(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = modifier
                     .fillMaxSize()
+                    .background(MaterialTheme.colorScheme.background)
+                    .padding(top = 16.dp, end = 16.dp, start = 16.dp)
                     .consumeWindowInsets(WindowInsets.displayCutout)
             ) {
                 Column(
