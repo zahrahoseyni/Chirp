@@ -90,7 +90,8 @@ fun ChirpAdaptiveFormLayout(
                     AuthHeaderSection(
                         headerText = headerText,
                         headerColor = headerColor,
-                        errorText = errorText
+                        errorText = errorText,
+                        textAlign = TextAlign.Start
                     )
                 }
                 ChirpSurface(
@@ -141,14 +142,15 @@ fun ChirpAdaptiveFormLayout(
 fun ColumnScope.AuthHeaderSection(
     headerText: String,
     errorText: String? = null,
-    headerColor: Color
+    headerColor: Color,
+    textAlign: TextAlign = TextAlign.Center
 ) {
 
     Text(
         text = headerText,
         style = MaterialTheme.typography.titleLarge,
         color = headerColor,
-        textAlign = TextAlign.Center,
+        textAlign = textAlign,
         modifier = Modifier.fillMaxWidth()
     )
 
@@ -158,7 +160,7 @@ fun ColumnScope.AuthHeaderSection(
                 text = it,
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.error,
-                textAlign = TextAlign.Center,
+                textAlign = textAlign,
                 modifier = Modifier.fillMaxWidth()
             )
         }
