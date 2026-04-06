@@ -35,50 +35,48 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ChirpAdaptiveFormLayout(
-    modifier: Modifier = Modifier,
     headerText: String,
     errorText: String? = null,
     logo: @Composable () -> Unit,
-    formContent: @Composable () -> Unit
+    modifier: Modifier = Modifier,
+    formContent: @Composable ColumnScope.() -> Unit
 ) {
-
     val configuration = currentDeviceConfiguration()
-    val headerColor = if (configuration == DeviceConfiguration.MOBILE_LANDSCAPE) {
+    val headerColor = if(configuration == DeviceConfiguration.MOBILE_LANDSCAPE) {
         MaterialTheme.colorScheme.onBackground
     } else {
         MaterialTheme.colorScheme.extended.textPrimary
     }
 
-    when (configuration) {
+    when(configuration) {
         DeviceConfiguration.MOBILE_PORTRAIT -> {
             ChirpSurface(
-                modifier = modifier.consumeWindowInsets(WindowInsets.navigationBars)
+                modifier = modifier
+                    .consumeWindowInsets(WindowInsets.navigationBars)
                     .consumeWindowInsets(WindowInsets.displayCutout),
                 header = {
                     Spacer(modifier = Modifier.height(32.dp))
                     logo()
                     Spacer(modifier = Modifier.height(32.dp))
-                },
-                content = {
-                    Spacer(modifier = Modifier.height(24.dp))
-                    AuthHeaderSection(
-                        headerText = headerText,
-                        errorText = errorText,
-                        headerColor = headerColor
-                    )
-                    formContent()
                 }
-            )
+            ) {
+                Spacer(modifier = Modifier.height(24.dp))
+                AuthHeaderSection(
+                    headerText = headerText,
+                    headerColor = headerColor,
+                    errorText = errorText
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+                formContent()
+            }
         }
-
         DeviceConfiguration.MOBILE_LANDSCAPE -> {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = modifier
                     .fillMaxSize()
-                    .background(MaterialTheme.colorScheme.background)
-                    .padding(top = 16.dp, end = 16.dp, start = 16.dp)
                     .consumeWindowInsets(WindowInsets.displayCutout)
+                    .consumeWindowInsets(WindowInsets.navigationBars)
             ) {
                 Column(
                     modifier = Modifier
@@ -91,18 +89,19 @@ fun ChirpAdaptiveFormLayout(
                         headerText = headerText,
                         headerColor = headerColor,
                         errorText = errorText,
-                        textAlign = TextAlign.Start
+                        headerTextAlignment = TextAlign.Start
                     )
                 }
                 ChirpSurface(
                     modifier = Modifier
                         .weight(1f)
                 ) {
+                    Spacer(modifier = Modifier.height(16.dp))
                     formContent()
+                    Spacer(modifier = Modifier.height(16.dp))
                 }
             }
         }
-
         DeviceConfiguration.TABLET_PORTRAIT,
         DeviceConfiguration.TABLET_LANDSCAPE,
         DeviceConfiguration.DESKTOP -> {
@@ -122,7 +121,6 @@ fun ChirpAdaptiveFormLayout(
                         .clip(RoundedCornerShape(32.dp))
                         .background(MaterialTheme.colorScheme.surface)
                         .padding(horizontal = 24.dp, vertical = 32.dp),
-                    verticalArrangement = Arrangement.spacedBy(24.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     AuthHeaderSection(
@@ -137,57 +135,54 @@ fun ChirpAdaptiveFormLayout(
     }
 }
 
-
 @Composable
 fun ColumnScope.AuthHeaderSection(
     headerText: String,
-    errorText: String? = null,
     headerColor: Color,
-    textAlign: TextAlign = TextAlign.Center
+    errorText: String? = null,
+    headerTextAlignment: TextAlign = TextAlign.Center
 ) {
-
     Text(
         text = headerText,
         style = MaterialTheme.typography.titleLarge,
         color = headerColor,
-        textAlign = textAlign,
+        textAlign = headerTextAlignment,
         modifier = Modifier.fillMaxWidth()
     )
-
-    AnimatedVisibility(visible = errorText != null) {
-        errorText?.let {
+    AnimatedVisibility(
+        visible = errorText != null
+    ) {
+        if(errorText != null) {
             Text(
-                text = it,
+                text = errorText,
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.error,
-                textAlign = textAlign,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth(),
+                textAlign = headerTextAlignment
             )
         }
     }
 }
 
 @Composable
-@Preview()
+@Preview
 fun ChirpAdaptiveFormLayoutLightPreview() {
     ChirpTheme {
         ChirpAdaptiveFormLayout(
             headerText = "Welcome to Chirp!",
-            errorText = "Failed to login",
-            logo = {
-                ChirpBrandLogo()
-            },
+            errorText = "Login failed!",
+            logo = { ChirpBrandLogo() },
             formContent = {
                 Text(
-                    text = "Form Content",
+                    text = "Sample form title",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
-
                 Text(
-                    text = "Form Content2",
+                    text = "Sample form title 2",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.secondary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         )
@@ -199,22 +194,19 @@ fun ChirpAdaptiveFormLayoutLightPreview() {
 fun ChirpAdaptiveFormLayoutDarkPreview() {
     ChirpTheme(darkTheme = true) {
         ChirpAdaptiveFormLayout(
-            headerText = "Welcome to Chirp",
-            errorText = "Failed to login",
-            logo = {
-                ChirpBrandLogo()
-            },
+            headerText = "Welcome to Chirp!",
+            errorText = "Login failed!",
+            logo = { ChirpBrandLogo() },
             formContent = {
                 Text(
-                    text = "Form Content",
+                    text = "Sample form title",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
-
                 Text(
-                    text = "Form Content2",
+                    text = "Sample form title 2",
                     style = MaterialTheme.typography.bodyLarge,
-                    color = MaterialTheme.colorScheme.secondary
+                    color = MaterialTheme.colorScheme.onSurface
                 )
             }
         )
