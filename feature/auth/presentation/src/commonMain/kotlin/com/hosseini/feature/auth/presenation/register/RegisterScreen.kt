@@ -33,10 +33,11 @@ import com.hosseini.core.designsystem.components.textfield.ChirpTextField
 import com.hosseini.core.designsystem.theme.ChirpTheme
 import com.hosseini.core.presentation.util.ObserveAsEvents
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun RegisterRoot(
-    viewModel: RegisterViewModel = viewModel(),
+    viewModel: RegisterViewModel = koinViewModel(),
     onRegisterSuccess: (String) -> Unit
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
