@@ -35,6 +35,9 @@ import com.hosseini.core.presentation.util.ObserveAsEvents
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
+/**
+ *  Root = stateful, knows about DI/navigation, not previewable
+ *  Screen = stateless, knows only about state and onAction, always previewable**/
 @Composable
 fun RegisterRoot(
     viewModel: RegisterViewModel = koinViewModel(),
