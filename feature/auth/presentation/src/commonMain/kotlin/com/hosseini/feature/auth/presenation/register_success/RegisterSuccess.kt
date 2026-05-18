@@ -18,7 +18,7 @@ import com.hosseini.core.designsystem.components.brand.ChirpSuccessIcon
 import com.hosseini.core.designsystem.components.buttons.ChirpButton
 import com.hosseini.core.designsystem.components.buttons.ChirpButtonStyle
 import com.hosseini.core.designsystem.components.layouts.ChirpAdaptiveResultLayout
-import com.hosseini.core.designsystem.components.layouts.ChirpSimpleSuccessLayout
+import com.hosseini.core.designsystem.components.layouts.ChirpSimpleResultLayout
 import com.hosseini.core.designsystem.components.layouts.ChirpSnackbarScaffold
 import com.hosseini.core.designsystem.theme.ChirpTheme
 import com.hosseini.core.presentation.util.ObserveAsEvents
@@ -61,7 +61,7 @@ fun RegisterSuccessScreen(
         snackbarHostState = snackbarHostState
     ) {
         ChirpAdaptiveResultLayout {
-            ChirpSimpleSuccessLayout(
+            ChirpSimpleResultLayout(
                 title = stringResource(Res.string.account_successfully_created),
                 description = stringResource(
                     Res.string.verification_email_sent_to_x,

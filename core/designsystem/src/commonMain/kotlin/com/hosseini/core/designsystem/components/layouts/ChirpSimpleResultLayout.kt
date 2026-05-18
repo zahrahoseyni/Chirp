@@ -21,7 +21,7 @@ import com.hosseini.core.designsystem.theme.extended
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ChirpSimpleSuccessLayout(
+fun ChirpSimpleResultLayout(
     modifier: Modifier = Modifier,
     title: String,
     description: String,
@@ -87,7 +87,7 @@ fun ChirpSimpleSuccessLayout(
 @Preview(showBackground = false)
 fun ChirpSimpleSuccessLayoutPreview() {
     ChirpTheme(darkTheme = true) {
-        ChirpSimpleSuccessLayout(
+        ChirpSimpleResultLayout(
             title = "Chirp successfully created!",
             description = "We’ve sent verification email to olivia@chirp.chat",
             icon = { ChirpSuccessIcon() },
