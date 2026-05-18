@@ -1,5 +1,6 @@
 package com.hosseini.core.data.auth
 
+import com.hosseini.core.data.dto.requests.EmailRequest
 import com.hosseini.core.data.networking.post
 import com.hosseini.core.data.dto.requests.RegisterRequest
 import com.hosseini.core.domain.auth.AuthService
@@ -16,6 +17,13 @@ class KtorAuthService(private val httpClient: HttpClient) : AuthService {
         return httpClient.post(
             route = "/auth/register",
             body = RegisterRequest(email = email, username = username, password = password)
+        )
+    }
+
+    override suspend fun resendVerificationEmail(email: String): EmptyResult<DataError.Remote> {
+        return httpClient.post(
+            route = "/auth/resend-verification",
+            body = EmailRequest(email)
         )
     }
 }
